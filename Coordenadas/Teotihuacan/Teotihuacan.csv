@@ -1,0 +1,4 @@
+type,title,description,logitude,latitude,geometry_type
+Feauture,Piramide del sol,Es la edificación más grande de Teotihuacán y una de las más grandes de Mesoamérica.,19.69257,-98.8435,Point
+Feauture,Piramide de la luna,"Es la segunda edificación más grande de Teotihuacán, después de la “Pirámide del Sol""",19.69802014,98.8459514,Point
+Feauture,Palacio de Quetzalpapálotl,"Presenta una plataforma decorada con pinturas murales en las que hay aves y diversos símbolos, y un temlo en cuya puerta se observan relieves de piedra de caracoles con plumas, de ahí su nombre.",19.69817165,-98.84585484,Point
