@@ -1,0 +1,38 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Piramide del sol",
+        "description": "Es la edificación más grande de Teotihuacán y una de las más grandes de Mesoamérica."
+      },
+      "geometry": {
+        "coordinates": [19.692565826221863, -98.8435035030639],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Piramide de la luna",
+        "description": "Es la segunda edificación más grande de Teotihuacán, después de la Pirámide del Sol"
+      },
+      "geometry": {
+        "coordinates": [19.69808074179409, -98.84443863269966],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Palacio de Quetzalpapálotl",
+        "description": "Presenta una plataforma decorada con pinturas murales en las que hay aves y diversos símbolos, y un temlo en cuya puerta se observan relieves de piedra de caracoles con plumas, de ahí su nombre."
+      },
+      "geometry": {
+        "coordinates": [19.69804033777269, -98.84590848323512],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}
