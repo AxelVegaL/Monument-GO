@@ -6,15 +6,12 @@ body, html {
     height: 100%;
 }
 
-body {
-
-  background-image: url(../media/mex.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+body{
+  margin: 0;
+  padding: 0;
+  background-color: white;
 
   display: flex;
-  flex-direction: rox;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -44,6 +41,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -68,4 +67,45 @@ body {
 .ciudad:hover {
   color: white;
   background-color: #EF831D;
+}
+
+.slider{
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.slider ul{
+  display: flex;
+  padding: 0;
+  width: 400%;
+
+  animation: cambio 15s infinite alternate;
+}
+
+.slider li{
+  width: 100%;
+  list-style: none;
+}
+
+.slider img {
+width: 100%;
+height: 95%;
+filter: blur(5px);
+}
+
+@keyframes cambio {
+  0%{margin-left: 0;}
+  20%{margin-left: 0;}
+
+  25%{margin-left: -100%;}
+  45%{margin-left: -100%;}
+
+  50%{margin-left: -200%;}
+  70%{margin-left: -200%;}
+
+  75%{margin-left: -300%;}
+  100%{margin-left: -300%;}
+
 }
