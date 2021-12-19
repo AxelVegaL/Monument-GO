@@ -2,7 +2,7 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = '../Coordenadas/CDMX/CDMX.txt';
+var storeLocationDataUrl = '../Coordenadas/CDMX/CDMXCoor.txt';
 
 //The URL to the icon image.
 var iconImageUrl = 'images/CoffeeIcon.png';
@@ -246,13 +246,13 @@ fetch(storeLocationDataUrl)
             //Ensure that the row has the correct number of columns.
             if (row.length >= numColumns) {
 
-                features.push(new atlas.data.Feature(new atlas.data.Point([parseFloat(row[header['Longitude']]), parseFloat(row[header['Latitude']])]), {
-                    Nombre: row[header['Nombre']],
-                    Direccion: row[header['Direccion']],
-                    Ciudad: row[header['Ciudad']],
-                    Municipio: row[header['Municipio']],
-                    Pais: row[header['Pais']],
-                    CodigoPostal: row[header['CodigoPostal']],
+              features.push(new atlas.data.Feature(new atlas.data.Point([parseFloat(row[header['Longitude']]), parseFloat(row[header['Latitude']])]), {
+                  Name: row[header['Name']],
+                  AddressLine: row[header['AddressLine']],
+                  City: row[header['City']],
+                  Municipality: row[header['Municipality']],
+                  Country: row[header['Country']],
+                  PostCode: row[header['PostCode']],
                 }));
             }
         }
@@ -324,7 +324,7 @@ function updateListItems() {
         data.forEach(function(shape) {
             properties = shape.getProperties();
             html.push('<div class="listItem" onclick="itemSelected(\'', shape.getId(), '\')"><div class="listItem-title">',
-            properties['Direccion'],
+            properties['AddressLine'],
             '</div>',
             //Get a formatted addressLine2 value that consists of City, Municipality, AdminDivision, and PostCode.
             getAddressLine2(properties),
@@ -382,18 +382,18 @@ function getOpenTillTime(properties) {
 
 //Create an addressLine2 string that contains City, Municipality, AdminDivision, and PostCode.
 function getAddressLine2(properties) {
-    var html = [properties['Ciudad']];
+    var html = [properties['City']];
 
-    if (properties['Municipio']) {
-        html.push(', ', properties['Municipio']);
+    if (properties['Municipality']) {
+        html.push(', ', properties['Municipality']);
     }
 
-    if (properties['Direccion']) {
-        html.push(', ', properties['Direccion']);
+    if (properties['AddressLine']) {
+        html.push(', ', properties['AddressLine']);
     }
 
-    if (properties['CodigoPostal']) {
-        html.push(' ', properties['CodigoPostal']);
+    if (properties['PostCode']) {
+        html.push(' ', properties['PostCode']);
     }
 
     return html.join('');
@@ -447,7 +447,7 @@ function showPopup(shape) {
 
     var html = ['<div class="storePopup">'];
     html.push('<div class="popupTitle">',
-        properties['Direccion'],
+        properties['AddressLine'],
         '<div class="popupSubTitle">',
         getAddressLine2(properties),
         '</div></div><div class="popupContent">',
