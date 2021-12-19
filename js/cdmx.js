@@ -2,7 +2,7 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = '..\Coordenadas\CDMX\CDMXCoor.txt';
+var storeLocationDataUrl = '../Coordenadas\CDMX\CDMXCoor.txt';
 
 //The URL to the icon image.
 var iconImageUrl = 'media\pin.png';
@@ -13,8 +13,9 @@ var map, popup, datasource, iconLayer, centerMarker, searchURL;
 function initialize() {
     //Initialize a map instance.
     map = new atlas.Map('myMap', {
-        center: [-90, 40],
-        zoom: 2,
+        center: [-99.133333, 19.432778],
+        zoom: 10,
+        view: 'Auto',
 
         //Add your Azure Maps primary subscription key to the map SDK.
         authOptions: {
