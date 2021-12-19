@@ -2,7 +2,7 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = '../Coordenadas/CDMX/CDMXCoor.txt';
+var storeLocationDataUrl = 'Coordenadas/CDMX/CDMXCoor.txt';
 
 //The URL to the icon image.
 var iconImageUrl = '../media/pin.png';
@@ -172,7 +172,7 @@ map.imageSprite.add('myCustomIcon', iconImageUrl).then(function() {
            image: 'myCustomIcon',
 
            //Optionally, scale the size of the icon.
-           font: ['sans-serif'],
+           font: ['SegoeUi-Bold'],
 
            //Anchor the center of the icon image to the coordinate.
            anchor: 'center',
