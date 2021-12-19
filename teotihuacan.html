@@ -3,16 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Teotihuacan | Monument GO!</title>
-  <link rel="stylesheet" href="css/ciudades.css">
+  <link rel="stylesheet" href="css/mapas.css" type="text/css">
+  <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+  <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+  <script src="https://atlas.microsoft.com/sdk/javascript/service/2/atlas-service.min.js"></script>
+  <script src="js/teotihuacan.js"></script>
 </head>
 <body>
-  <header>
-     <h1 class="titulo cab_item">Teotihuacán</h1>
-     <a class="cab_item" href="home.html">Volver</a>
-  </header>
-  <section>
-  </section>
+    <header>
+        <img src="media/teotihuacan.png" />
+        <span>Teotihuacan</span>
+        <a class="cab_item" href="home.html">Volver</a>
+    </header>
+    <main>
+    <div class="searchPanel">
+        <div>
+            <input id="searchTbx" type="search" placeholder="Busca un lugar" />
+            <button id="searchBtn" title="Search"></button>
+        </div>
+    </div>
+    <div id="listPanel"></div>
+    <div id="myMap"></div>
+    <button id="myLocationBtn" title="My Location"></button>
+</main>
 </body>
 </html>
