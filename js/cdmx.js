@@ -52,6 +52,7 @@ function initialize() {
     document.getElementById('myLocationBtn').onclick = setMapToUserLocation;
 
     //Wait until the map resources are ready.
+    map.events.add('ready', function () {
         //Add the zoom control to the map.
         map.controls.add(new atlas.control.ZoomControl(), {
             position: 'top-right'
