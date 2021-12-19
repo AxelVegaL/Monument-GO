@@ -2,11 +2,13 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = 'Coordenadas/CDMX/CDMXCoor.txt';
+var storeLocationDataUrl = '..\Coordenadas\CDMX\CDMXCoor.txt';
 
 //The URL to the icon image.
-var iconImageUrl = '../media/pin.png';
+var iconImageUrl = 'media\pin.png';
 var map, popup, datasource, iconLayer, centerMarker, searchURL;
+
+//---------------------------------------------------------------
 
 function initialize() {
     //Initialize a map instance.
@@ -112,6 +114,8 @@ function setMapToUserLocation() {
 //Initialize the application when the page is loaded.
 window.onload = initialize;
 
+//--------------------------------------------------------------------
+
 //Add a zoom control to the map.
 map.controls.add(new atlas.control.ZoomControl(), {
     position: 'top-right'
@@ -125,6 +129,8 @@ centerMarker = new atlas.HtmlMarker({
 
 map.markers.add(centerMarker);
 
+//-------------------------------------------------------------------
+
 //Create a data source, add it to the map, and then enable clustering.
 datasource = new atlas.source.DataSource(null, {
     cluster: true,
@@ -135,6 +141,8 @@ map.sources.add(datasource);
 
 //Load all the store data now that the data source is defined.
 loadStoreData();
+
+//------------------------------------------------------------------
 
 //Create a bubble layer to render clustered data points.
 var clusterBubbleLayer = new atlas.layer.BubbleLayer(datasource, null, {
@@ -216,6 +224,8 @@ map.imageSprite.add('myCustomIcon', iconImageUrl).then(function() {
    });
 });
 
+//-------------------------------------------------------------------------
+
 function loadStoreData() {
 
 //Download the store location data.
@@ -246,13 +256,13 @@ fetch(storeLocationDataUrl)
             //Ensure that the row has the correct number of columns.
             if (row.length >= numColumns) {
 
-              features.push(new atlas.data.Feature(new atlas.data.Point([parseFloat(row[header['Longitude']]), parseFloat(row[header['Latitude']])]), {
-                  Name: row[header['Name']],
-                  AddressLine: row[header['AddressLine']],
-                  City: row[header['City']],
-                  Municipality: row[header['Municipality']],
-                  Country: row[header['Country']],
-                  PostCode: row[header['PostCode']],
+                features.push(new atlas.data.Feature(new atlas.data.Point([parseFloat(row[header['Longitude']]), parseFloat(row[header['Latitude']])]), {
+                    Name: row[header['Name']],
+                    AddressLine: row[header['AddressLine']],
+                    City: row[header['City']],
+                    Municipality: row[header['Municipality']],
+                    Country: row[header['Country']],
+                    PostCode: row[header['PostCode']],
                 }));
             }
         }
@@ -264,6 +274,8 @@ fetch(storeLocationDataUrl)
         updateListItems();
     });
 }
+
+//-------------------------------------------------------------------
 
 var listItemTemplate = '<div class="listItem" onclick="itemSelected(\'{id}\')"><div class="listItem-title">{title}</div>{city}<br />Open until {closes}<br />{distance} miles away</div>';
 
@@ -346,40 +358,6 @@ function updateListItems() {
     }
 }
 
-//This converts a time that's in a 24-hour format to an AM/PM time or noon/midnight string.
-function getOpenTillTime(properties) {
-    var time = properties['Closes'];
-    var t = time / 100;
-    var sTime;
-
-    if (time === 1200) {
-        sTime = 'noon';
-    } else if (time === 0 || time === 2400) {
-        sTime = 'midnight';
-    } else {
-        sTime = Math.round(t) + ':';
-
-        //Get the minutes.
-        t = (t - Math.round(t)) * 100;
-
-        if (t === 0) {
-            sTime += '00';
-        } else if (t < 10) {
-            sTime += '0' + t;
-        } else {
-            sTime += Math.round(t);
-        }
-
-        if (time < 1200) {
-            sTime += ' AM';
-        } else {
-            sTime += ' PM';
-        }
-    }
-
-    return 'Open until ' + sTime;
-}
-
 //Create an addressLine2 string that contains City, Municipality, AdminDivision, and PostCode.
 function getAddressLine2(properties) {
     var html = [properties['City']];
@@ -388,9 +366,9 @@ function getAddressLine2(properties) {
         html.push(', ', properties['Municipality']);
     }
 
-    if (properties['AddressLine']) {
-        html.push(', ', properties['AddressLine']);
-    }
+    /*if (properties['AdminDivision']) {
+        html.push(', ', properties['AdminDivision']);
+    }*/
 
     if (properties['PostCode']) {
         html.push(' ', properties['PostCode']);
@@ -398,6 +376,8 @@ function getAddressLine2(properties) {
 
     return html.join('');
 }
+
+//--------------------------------------------------------------------
 
 //When a user selects a result in the side panel, look up the shape by its ID value and display the pop-up window.
 function itemSelected(id) {
@@ -452,25 +432,11 @@ function showPopup(shape) {
         getAddressLine2(properties),
         '</div></div><div class="popupContent">',
 
-        //Convert the closing time to a format that's easier to read.
-        getOpenTillTime(properties),
-
         //Add the distance information.
         '<br/>', distance,
-        ' miles away'
+        ' miles away',
+        '<br />'
     );
-
-    /*if (properties['IsWiFiHotSpot'] || properties['IsWheelchairAccessible']) {
-        html.push('<br/>Amenities: ');
-
-        if (properties['IsWiFiHotSpot']) {
-            html.push('<img src="images/WiFiIcon.png" title="Wi-Fi Hotspot"/>');
-        }
-
-        if (properties['IsWheelchairAccessible']) {
-            html.push('<img src="images/WheelChair-small.png" title="Wheelchair Accessible"/>');
-        }
-    }*/
 
     html.push('</div></div>');
 
