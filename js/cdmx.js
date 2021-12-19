@@ -2,7 +2,7 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = 'data/ContosoCoffee.txt';
+var storeLocationDataUrl = '../Coordenadas/CDMX/CDMX.txt';
 
 //The URL to the icon image.
 var iconImageUrl = 'images/CoffeeIcon.png';
