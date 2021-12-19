@@ -2,10 +2,10 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = '...\Coordenadas\CDMX\CDMXCoor.txt';
+var storeLocationDataUrl = '../Coordenadas/CDMX/CDMXCoor.txt';
 
 //The URL to the icon image.
-var iconImageUrl = 'images/CoffeeIcon.png';
+var iconImageUrl = '../media/pin.png';
 var map, popup, datasource, iconLayer, centerMarker, searchURL;
 
 function initialize() {
