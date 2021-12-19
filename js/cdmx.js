@@ -1,5 +1,5 @@
 //The maximum zoom level to cluster data point data on the map.
-var maxClusterZoomLevel = 11;
+var maxClusterZoomLevel = 0;
 
 //The URL to the store location data.
 var storeLocationDataUrl = 'Coordenadas/CDMX/CDMXCoor.txt';
@@ -74,7 +74,7 @@ function initialize() {
 
         map.sources.add(datasource);
 
-        //Load all the store data now that the data source has been defined. 
+        //Load all the store data now that the data source has been defined.
         loadStoreData();
 
         //Create a bubble layer for rendering clustered data points.
@@ -135,7 +135,7 @@ function initialize() {
                 map.getCanvasContainer().style.cursor = 'grab';
             });
 
-            //Add a click event to the cluster layer. When someone clicks on a cluster, zoom into it by 2 levels. 
+            //Add a click event to the cluster layer. When someone clicks on a cluster, zoom into it by 2 levels.
             map.events.add('click', clusterBubbleLayer, function (e) {
                 map.setCamera({
                     center: e.position,
@@ -454,7 +454,7 @@ function updateListItems() {
     if (camera.zoom < maxClusterZoomLevel) {
         //Close the pop-up window; clusters might be displayed on the map.
         popup.close();
-        listPanel.innerHTML = '<div class="statusMessage">Search for a location, zoom the map, or select the My Location button to see individual locations.</div>';
+        listPanel.innerHTML = '<div class="statusMessage">Busque una ubicación, amplíe el mapa o seleccione el botón Mi ubicación para ver ubicaciones individuales.</div>';
     } else {
         //Update the location of the centerMarker property.
         centerMarker.setOptions({
@@ -497,15 +497,15 @@ function updateListItems() {
         data.forEach(function(shape) {
             properties = shape.getProperties();
             html.push('<div class="listItem" onclick="itemSelected(\'', shape.getId(), '\')"><div class="listItem-title">',
-            properties['AddressLine'],
+            properties['Name'],
             '</div>',
             //Get a formatted addressLine2 value that consists of City, Municipality, AdminDivision, and PostCode.
             getAddressLine2(properties),
             '<br />',
 
             //Convert the closing time to a format that is easier to read.
-            getOpenTillTime(properties),
-            '<br />',
+            /*getOpenTillTime(properties),
+            '<br />',*/
 
             //Get the distance of the shape.
             distances[shape.getId()],
@@ -521,15 +521,15 @@ function updateListItems() {
 
 //Create an addressLine2 string that contains City, Municipality, AdminDivision, and PostCode.
 function getAddressLine2(properties) {
-    var html = [properties['City']];
+    var html = [properties['AddressLine']];
+
+    if (properties['City']) {
+        html.push(', ', properties['City']);
+    }
 
     if (properties['Municipality']) {
         html.push(', ', properties['Municipality']);
     }
-
-    /*if (properties['AdminDivision']) {
-        html.push(', ', properties['AdminDivision']);
-    }*/
 
     if (properties['PostCode']) {
         html.push(' ', properties['PostCode']);
