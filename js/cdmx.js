@@ -14,7 +14,7 @@ function initialize() {
     //Initialize a map instance.
     map = new atlas.Map('myMap', {
         center: [-99.133333, 19.432778],
-        zoom: 10,
+        zoom: 12,
         view: 'Auto',
 
         //Add your Azure Maps primary subscription key to the map SDK.
@@ -393,7 +393,7 @@ function updateListItems() {
     if (camera.zoom < maxClusterZoomLevel) {
         //Close the pop-up window; clusters might be displayed on the map.
         popup.close();
-        listPanel.innerHTML = '<div class="statusMessage">Search for a location, zoom the map, or select the My Location button to see individual locations.</div>';
+        listPanel.innerHTML = '<div class="statusMessage">Busque una ubicación, amplíe el mapa o seleccione el botón Mi ubicación para ver ubicaciones individuales.</div>';
     } else {
         //Update the location of the centerMarker property.
         centerMarker.setOptions({
