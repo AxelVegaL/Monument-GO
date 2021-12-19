@@ -155,6 +155,67 @@ function initialize() {
             });
         });
 
+        //Create a data source and add it to the map.
+        datasource = new atlas.source.DataSource();
+        map.sources.add(datasource);
+
+        //Add a layer for rendering the route lines and have it render under the map labels.
+        map.layers.add(new atlas.layer.LineLayer(datasource, null, {
+            strokeColor: '#2272B9',
+            strokeWidth: 5,
+            lineJoin: 'round',
+            lineCap: 'round'
+        }), 'labels');
+
+        //Add a layer for rendering point data.
+        map.layers.add(new atlas.layer.SymbolLayer(datasource, null, {
+            iconOptions: {
+                image: ['get', 'icon'],
+                allowOverlap: true
+            },
+            textOptions: {
+                textField: ['get', 'title'],
+                offset: [0, 1.2]
+            },
+            filter: ['any', ['==', ['geometry-type'], 'Point'], ['==', ['geometry-type'], 'MultiPoint']] //Only render Point or MultiPoints in this layer.
+        }));
+
+
+        //Create the GeoJSON objects which represent the start and end points of the route.
+        var startPoint = new atlas.data.Feature(new atlas.data.Point([-99.133333, 19.432778]), {
+            title: "Tu Ubicación",
+            icon: "pin-blue"
+        });
+
+        var endPoint = new atlas.data.Feature(new atlas.data.Point([-99.1815000, 19.4205000]), {
+            title: "Castillo de Chapultepec",
+            icon: "pin-round-blue"
+        });
+
+        //Add the data to the data source.
+        datasource.add([startPoint, endPoint]);
+
+        map.setCamera({
+            bounds: atlas.data.BoundingBox.fromData([startPoint, endPoint]),
+            padding: 80
+        });
+
+        //Use MapControlCredential to share authentication between a map control and the service module.
+        var pipeline = atlas.service.MapsURL.newPipeline(new atlas.service.MapControlCredential(map));
+
+        //Construct the RouteURL object
+        var routeURL = new atlas.service.RouteURL(pipeline);
+
+        //Start and end point input to the routeURL
+        var coordinates = [[startPoint.geometry.coordinates[0], startPoint.geometry.coordinates[1]], [endPoint.geometry.coordinates[0], endPoint.geometry.coordinates[1]]];
+
+        //Make a search route request
+        routeURL.calculateRouteDirections(atlas.service.Aborter.timeout(10000), coordinates).then((directions) => {
+            //Get data features from response
+            var data = directions.geojson.getFeatures();
+            datasource.add(data);
+        });        
+
     });
 }
 
@@ -550,4 +611,95 @@ function showPopup(shape) {
 
     //Open the pop-up window.
     popup.open(map);
+}
+var map, datasource, client;
+
+function GetMap() {
+
+    // Instantiate a map object
+    var map = new atlas.Map('myMap', {
+        view: 'Auto',
+
+        //Add authentication details for connecting to Azure Maps.
+        authOptions: {
+            //Use Azure Active Directory authentication.
+            authType: 'anonymous',
+            clientId: '04ec075f-3827-4aed-9975-d56301a2d663', //Your Azure Active Directory client id for accessing your Azure Maps account.
+            getToken: function (resolve, reject, map) {
+                //URL to your authentication service that retrieves an Azure Active Directory Token.
+                var tokenServiceUrl = "https://azuremapscodesamples.azurewebsites.net/Common/TokenService.ashx";
+
+                fetch(tokenServiceUrl).then(r => r.text()).then(token => resolve(token));
+            }
+
+            //Alternatively, use an Azure Maps key. Get an Azure Maps key at https://azure.com/maps. NOTE: The primary key should be used as the key.
+            //authType: 'subscriptionKey',
+            //subscriptionKey: '<Your Azure Maps Key>'
+        }
+    });
+
+    //Wait until the map resources are ready.
+    map.events.add('ready', function () {
+
+        //Create a data source and add it to the map.
+        datasource = new atlas.source.DataSource();
+        map.sources.add(datasource);
+
+        //Add a layer for rendering the route lines and have it render under the map labels.
+        map.layers.add(new atlas.layer.LineLayer(datasource, null, {
+            strokeColor: '#2272B9',
+            strokeWidth: 5,
+            lineJoin: 'round',
+            lineCap: 'round'
+        }), 'labels');
+
+        //Add a layer for rendering point data.
+        map.layers.add(new atlas.layer.SymbolLayer(datasource, null, {
+            iconOptions: {
+                image: ['get', 'icon'],
+                allowOverlap: true
+            },
+            textOptions: {
+                textField: ['get', 'title'],
+                offset: [0, 1.2]
+            },
+            filter: ['any', ['==', ['geometry-type'], 'Point'], ['==', ['geometry-type'], 'MultiPoint']] //Only render Point or MultiPoints in this layer.
+        }));
+
+
+        //Create the GeoJSON objects which represent the start and end points of the route.
+        var startPoint = new atlas.data.Feature(new atlas.data.Point([-122.130137, 47.644702]), {
+            title: "Redmond",
+            icon: "pin-blue"
+        });
+
+        var endPoint = new atlas.data.Feature(new atlas.data.Point([-122.3352, 47.61397]), {
+            title: "Seattle",
+            icon: "pin-round-blue"
+        });
+
+        //Add the data to the data source.
+        datasource.add([startPoint, endPoint]);
+
+        map.setCamera({
+            bounds: atlas.data.BoundingBox.fromData([startPoint, endPoint]),
+            padding: 80
+        });
+
+        //Use MapControlCredential to share authentication between a map control and the service module.
+        var pipeline = atlas.service.MapsURL.newPipeline(new atlas.service.MapControlCredential(map));
+
+        //Construct the RouteURL object
+        var routeURL = new atlas.service.RouteURL(pipeline);
+
+        //Start and end point input to the routeURL
+        var coordinates = [[startPoint.geometry.coordinates[0], startPoint.geometry.coordinates[1]], [endPoint.geometry.coordinates[0], endPoint.geometry.coordinates[1]]];
+
+        //Make a search route request
+        routeURL.calculateRouteDirections(atlas.service.Aborter.timeout(10000), coordinates).then((directions) => {
+            //Get data features from response
+            var data = directions.geojson.getFeatures();
+            datasource.add(data);
+        });
+    });
 }
