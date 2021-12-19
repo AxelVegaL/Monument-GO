@@ -14,7 +14,7 @@ function initialize() {
     //Initialize a map instance.
     map = new atlas.Map('myMap', {
         center: [-98.843888888889, 19.6925],
-        zoom: 14,
+        zoom: 13,
         view: 'Auto',
 
         //Add your Azure Maps primary subscription key to the map SDK.
