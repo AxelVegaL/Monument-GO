@@ -93,11 +93,11 @@ header {
 
 #searchBtn {
     background-color: transparent;
-    background-image: url("images/SearchIcon.png");
+    background-image: url("../media//SearchIcon.png");
 }
 
     #searchBtn:hover {
-        background-image: url("images/SearchIcon-hover.png");
+        background-image: url("../media/SearchIcon-hover.png");
     }
 
 .listItem {
