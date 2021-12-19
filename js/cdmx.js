@@ -1,5 +1,5 @@
 //The maximum zoom level to cluster data point data on the map.
-var maxClusterZoomLevel = 8;
+var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
 var storeLocationDataUrl = 'Coordenadas/CDMX/CDMXCoor.txt';
