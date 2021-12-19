@@ -2,7 +2,7 @@
 var maxClusterZoomLevel = 11;
 
 //The URL to the store location data.
-var storeLocationDataUrl = '../Coordenadas/CDMX/CDMXCoor.txt';
+var storeLocationDataUrl = '...\Coordenadas\CDMX\CDMXCoor.txt';
 
 //The URL to the icon image.
 var iconImageUrl = 'images/CoffeeIcon.png';
@@ -57,7 +57,7 @@ function initialize() {
 }
 
 //Create an array of country/region ISO 2 values to limit searches to.
-var countrySet = ['US', 'CA', 'GB', 'FR','DE','IT','ES','NL','DK'];
+var countrySet = ['MX'];
 
 function performSearch() {
     var query = document.getElementById('searchTbx').value;
@@ -163,7 +163,7 @@ var clusterLabelLayer = new atlas.layer.SymbolLayer(datasource, null, {
 map.layers.add([clusterBubbleLayer, clusterLabelLayer]);
 
 //Load a custom image icon into the map resources.
-map.imageSprite.add('myCustomIcon', '../media/pin.png').then(function() {
+map.imageSprite.add('myCustomIcon', iconImageUrl).then(function() {
 
    //Create a layer to render a coffee cup symbol above each bubble for an individual location.
    iconLayer = new atlas.layer.SymbolLayer(datasource, null, {
