@@ -20,5 +20,6 @@
 
 ## • ¿Cómo nos pareció el evento?
 
-#### 
+#### Sin duda, un evento que te deja pensando y pone a prueba tu conocimiento con la práctica que envuelve a la vida real. Un estudiante común acostumbrado a hechos prácticos, es buen partidiario para eventos donde la práctica profesional está más cerca y puedes vivir el entorno del trabajo en equipo, lluvias de ideas, etc.
+#### Un gran evento en la que colaboran grandes mentes. 🎓
 
